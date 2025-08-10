@@ -11,24 +11,20 @@
     <script defer src="app.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
-    <link rel="stylesheet" href="style.css">
 </head>
 
 <body id="the-body">
     <form>
         <h1>Searching Countries</h1>
         <span>If you want statistics for the whole countries of the world press here: </span>
-        <button>ALL</button>
+        <button id="all">ALL</button>
         <br>
         <label for="country">Enter One Country, Please Sir, Have a Good Day Sir:</label>
-        <input id="country"><button>One Country</button>
+        <input id="country"><button id="one-country">One Country</button>
     </form>
     <div id="the-statistics">
-        <p id="total-countries"></p>
-        <p id="total-population"></p>
-        <p id="average-population"></p>
     </div>
-    <div id="the-tables">
+    <div id="citizens-tables">
         <table id="citizens">
             <thead>
                 <tr>
@@ -37,12 +33,14 @@
                 </tr>
             </thead>
             <tbody id="citizens-body">
-                <tr>
+                <!-- <tr>
                     <td>Israel</td>
                     <td>10000000</td>
-                </tr>
+                </tr> -->
             </tbody>
         </table>
+    </div>
+    <div id="region-table">
         <table id="region">
             <thead>
                 <tr>
@@ -51,12 +49,14 @@
                 </tr>
             </thead>
             <tbody id="region-body">
-                <tr>
+                <!-- <tr>
                     <td>Asia</td>
                     <td>2</td>
-                </tr>
+                </tr> -->
             </tbody>
         </table>
+    </div>
+    <div id="currency-table">
         <table id="currency">
             <thead>
                 <tr>
@@ -65,10 +65,10 @@
                 </tr>
             </thead>
             <tbody id="currency-body">
-                <tr>
+                <!-- <tr>
                     <td>USD</td>
                     <td>2</td>
-                </tr>
+                </tr> -->
             </tbody>
         </table>
     </div>
