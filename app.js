@@ -1,93 +1,188 @@
 "use strict";
 
 
-/// Example 1#
-// (async () => {
+(async () => {
 
-//     const getData = url => fetch(url).then(response => response.json())
+    const getData = url => fetch(url).then(response => response.json())
 
-//     setTimeout(async () => {
+    const fetchItems = () => getData('https://restcountries.com/v3.1/all?fields=name,population,currencies,region')
 
-//         const getID = async () => {
-//             return new Promise((resolve, reject) => {
-//                 const the_id = document.querySelectorAll('textarea')[0].value
-//                 if (the_id > 10 || the_id < 1) reject('You must enter a number between 1-10')
-//                 resolve(the_id)
-//             })
+
+
+    const generateCountriesStatisticsHTML = countries => {
+        document.getElementById('the-statistics').innerHTML = ''
+        let stringigantic = ''
+        const skipLine = () => stringigantic += '<br><br>'
+
+        let totalCountries = countries.length,
+            totalPopulation = 0
+
+        countries.map(({ population }) => ({ population })
+            .forEach(({ population }) => {
+                totalPopulation += population;
+            }));
+        const averagePopulation = totalPopulation / totalCountries;
+        stringigantic += `<p id="total-countries">Total Countries Result: ${totalCountries}</p>
+        <p id="total-population">Total Countries Population:${totalPopulation}</p>
+        <p id="average-population">Average Population:${averagePopulation}</p>`
+        skipLine();
+        document.querySelectorAll('body')[0].innerHTML += stringigantic;
+    }
+
+    const generateCountriesHTML = countries => {
+        //const theCountry = document.getElementById('country').value
+        const html = countries
+            .map(({ name, currencies, region, population }) => `
+            
+        <table id="citizens">
+            <thead>
+                <tr>
+                    <th>Country Name</th>
+                    <th>Number of citizens</th>
+                </tr>
+            </thead>
+            <tbody id="citizens-body">
+                <tr>
+                    <td>Israel</td>
+                    <td>10000000</td>
+                </tr>
+            </tbody>
+        </table>
+        <table id="region">
+            <thead>
+                <tr>
+                    <th>Region</th>
+                    <th>Number of countries</th>
+                </tr>
+            </thead>
+            <tbody id="region-body">
+                <tr>
+                    <td>Asia</td>
+                    <td>2</td>
+                </tr>
+            </tbody>
+        </table>
+        <table id="currency">
+            <thead>
+                <tr>
+                    <th>Currency</th>
+                    <th>Number of countries</th>
+                </tr>
+            </thead>
+            <tbody id="currency-body">
+                <tr>
+                    <td>USD</td>
+                    <td>2</td>
+                </tr>
+            </tbody>
+        </table>`)
+            .join('')
+        return html
+
+        // const html = Object.entries(
+        //     users.reduce((cumulative, { birthDate }) => {
+        //         const current = { ...cumulative }
+        //         const currentDate = new Date(birthDate)
+        //         const birthMonth = currentDate.toLocaleString('en-us', { month: 'long' })
+        //         if (current[birthMonth]) current[birthMonth] += 1
+        //         else current[birthMonth] = 1
+        //         return current
+        //     }, {})
+        // )
+        //     .map(([birthMonth, counter]) => ({ birthMonth, counter }))
+        //     .sort((a, b) => b.counter - a.counter) // Magnitude of Order => O(1) because runs on the array only once
+        //     .map(({ birthMonth, counter }) => `
+        //     <tr>
+        //         <td>${birthMonth}</td>
+        //         <td>${counter}</td>
+        //     </tr>
+        // `).join('')
+
+        // const html = [user]
+        //     .map(({ name, username, email, phone, address: { city, street, zipcode }, company }) => `
+        //     <p>Name : ${name}</p>
+        //     <p>User Name : ${username}</p>
+        //     <p>Email : ${email}</p>
+        //     <p>Phone : ${phone}</p>
+        //     <p>City : ${city}</p>
+        //     <p>Street : ${street}</p>
+        //     <p>Zipcode : ${zipcode}</p>
+        //     <p>Comapny Name : ${company.name}</p>`)
+        //     .join('')
+        // return html
+    }
+
+    const renderHTML = (html, target) => document.getElementById(target).innerHTML = html
+    const renderCountriesStatisticsHTML = html => renderHTML(html, 'the-statistics')
+    const renderCountriesHTML = html => renderHTML(html, 'the-statistics')
+    //document.getElementById('the-id').innerHTML = html
+
+    const countries = await fetchItems()
+    const countriesHTML = generateCountriesHTML(countries)
+    renderCountriesHTML(countriesHTML)
+
+})();
+
+// (() => {
+//     const getAverage = array => {
+//         if (typeof array !== 'object') {
+//             throw new Error(alert('please enter only an array!'))
 //         }
-//         try {
-//             const fetchUsers = async () => {
-//                 const ID = await getID()
-//                 const user = await getData('https://jsonplaceholder.typicode.com/users/' + ID)
-//                 return user
-//             }
-//             const generateUsersHTML = (user) => {
-//                 const html = [user]
-//                     .map(({ name, username, email, phone, address: { city, street, zipcode }, company }) => `
-//             <p>Name : ${name}</p>
-//             <p>User Name : ${username}</p>
-//             <p>Email : ${email}</p>
-//             <p>Phone : ${phone}</p>
-//             <p>City : ${city}</p>
-//             <p>Street : ${street}</p>
-//             <p>Zipcode : ${zipcode}</p>
-//             <p>Comapny Name : ${company.name}</p>`)
-//                     .join('')
-//                 return html
-//             }
-//             const renderUsersHTML = html => {
-//                 document.getElementById('the-id').innerHTML = html
-//             }
-//             const user = await fetchUsers()
-//             const html = generateUsersHTML(user)
-//             renderUsersHTML(html)
+//         if (array.length === 0) {
+//             throw new Error(alert('Do not enter an empty array!'))
 //         }
-//         catch (err) {
-//             console.log(err)
+//         let sum = 0;
+//         array.forEach(num => {
+//             if (typeof num === 'undefined' || num === null) {
+//                 throw new Error(alert('please make an array with only numbers!'))
+//             }
+//             sum += num
+//         })
+//         return sum / array.length;
+//     };
+
+//     const myArray = [6]
+
+//     try {
+//         document.querySelectorAll('p')[0].innerText = `The average of my array is: ${getAverage(myArray).toFixed(2)}`
+//     }
+//     catch (err) {
+//         console.log(`${err}`)
+//     };
+
+//     const averagingAddedNumbers = () => {
+//         const hisArray = []
+//         const lengthOfArray = Number(prompt('Enter a length of array'));
+//         if (isNaN(lengthOfArray)) {
+//             throw new Error(alert('please enter a proper number!'))
 //         }
-//     }, 7000)
-
-// })();
-
-
-// ///Example 2#
-// (async () => {
-
-//     const getData = url => fetch(url).then(response => response.json())
-
-//     const fetchItems = () => getData('https://dummyjson.com/users')
-
-//     const generateMonthsHTML = users => {
-//         const html = Object.entries(
-//             users.reduce((cumulative, { birthDate }) => {
-//                 const current = { ...cumulative }
-//                 const currentDate = new Date(birthDate)
-//                 const birthMonth = currentDate.toLocaleString('en-us', { month: 'long' })
-//                 if (current[birthMonth]) current[birthMonth] += 1
-//                 else current[birthMonth] = 1
-//                 return current
-//             }, {})
-//         )
-//             .map(([birthMonth, counter]) => ({ birthMonth, counter }))
-//             .sort((a, b) => b.counter - a.counter) // Magnitude of Order => O(1) because runs on the array only once
-//             .map(({ birthMonth, counter }) => `
-//             <tr>
-//                 <td>${birthMonth}</td>
-//                 <td>${counter}</td>
-//             </tr>
-//         `).join('')
-//         return html
+//         for (let i = 1; i <= lengthOfArray; i++) {
+//             const num = Number(prompt('Enter a number!'))
+//             if (isNaN(num)) {
+//                 throw new Error(alert('please make an array with only numbers!'))
+//             }
+//             hisArray.push(num)
+//         };
+//         // if (hisArray.length === 0) {
+//         //     throw new Error(alert('Do not enter an empty array!'))
+//         // }  -----> Never reaches here  - when the user leaves the option blank it inserts an '0' instead and counts as an element in the array
+//         const theAverage = getAverage(hisArray)
+//         return theAverage
 //     }
 
-//     const renderHTML = (html, target) => document.getElementById(target).innerHTML = html
-//     const renderMonthsHTML = html => renderHTML(html, 'body')
+//     const sizeButtonFunction = (event) => {
+//         event.preventDefault()
+//         try {
+//             document.querySelectorAll('p')[1].innerText = `The average of your array is: ${averagingAddedNumbers().toFixed(2)}`
+//         }
+//         catch (err) {
+//             console.log(`${err}`)
+//         }
+//     }
 
-//     const { users } = await fetchItems()
-//     const monthsHTML = generateMonthsHTML(users)
-//     renderMonthsHTML(monthsHTML)
+//     document.querySelectorAll('button')[0].addEventListener('click', sizeButtonFunction)
 
-// })()
-
+//
 
 
 // /Example 3#
@@ -193,69 +288,43 @@
 //     skipLine();
 
 //     document.querySelectorAll('body')[0].innerHTML += stringigantic;
+// stringigantic += `<p id="total-countries">Total Countries Result:`
+// .map(({ name, currencies, region, population }) => ({ name, currencies, region, population }))
+//     .forEach(({ name, currencies, region, population }) => stringigantic += ` ${countries.length}</p>`)
+// skipLine();
+
+// const userStates = users.reduce((stateArray, { address: { state } }) => {
+//     if (!stateArray.includes(state)) {
+//         stateArray.push(state)
+//     }
+//     return stateArray
+// }, []);
+// stringigantic += `Array of all unique users' states is: <br> ${userStates}`
+// skipLine();
+
+// const userEyes = users.reduce((eyesArray, { eyeColor }) => {
+//     eyesArray.push(eyeColor)
+//     return eyesArray
+// }, []);
+// const userUniqueEyes = userEyes.reduce((userUniqueEyes, eye) => {
+//     if (!userUniqueEyes.includes(eye)) {
+//         userUniqueEyes.push(eye)
+//     }
+//     return userUniqueEyes
+// }, []);
+// const counterUniqueEyes = []
+// userUniqueEyes.forEach(uniqueEye => {
+//     let counter = 0;
+//     userEyes.forEach(eye => {
+//         if (eye === uniqueEye) {
+//             counter++
+//         }
+//     });
+//     counterUniqueEyes.push(counter)
+// });
+// const countingUniqueEyes = []
+// userUniqueEyes.forEach((uniqueEye, id) => countingUniqueEyes.push('<br>' + uniqueEye + ' : ' + counterUniqueEyes[id]));
+// stringigantic += `Array of all unique users' eyes and corresponding counting is: ${countingUniqueEyes}`
+// skipLine();
 
 // })();
-
-// / Example 4#
-
-// (() => {
-//     const getAverage = array => {
-//         if (typeof array !== 'object') {
-//             throw new Error(alert('please enter only an array!'))
-//         }
-//         if (array.length === 0) {
-//             throw new Error(alert('Do not enter an empty array!'))
-//         }
-//         let sum = 0;
-//         array.forEach(num => {
-//             if (typeof num === 'undefined' || num === null) {
-//                 throw new Error(alert('please make an array with only numbers!'))
-//             }
-//             sum += num
-//         })
-//         return sum / array.length;
-//     };
-
-//     const myArray = [6]
-
-//     try {
-//         document.querySelectorAll('p')[0].innerText = `The average of my array is: ${getAverage(myArray).toFixed(2)}`
-//     }
-//     catch (err) {
-//         console.log(`${err}`)
-//     };
-
-//     const averagingAddedNumbers = () => {
-//         const hisArray = []
-//         const lengthOfArray = Number(prompt('Enter a length of array'));
-//         if (isNaN(lengthOfArray)) {
-//             throw new Error(alert('please enter a proper number!'))
-//         }
-//         for (let i = 1; i <= lengthOfArray; i++) {
-//             const num = Number(prompt('Enter a number!'))
-//             if (isNaN(num)) {
-//                 throw new Error(alert('please make an array with only numbers!'))
-//             }
-//             hisArray.push(num)
-//         };
-//         // if (hisArray.length === 0) {
-//         //     throw new Error(alert('Do not enter an empty array!'))
-//         // }  -----> Never reaches here  - when the user leaves the option blank it inserts an '0' instead and counts as an element in the array
-//         const theAverage = getAverage(hisArray)
-//         return theAverage
-//     }
-
-//     const sizeButtonFunction = (event) => {
-//         event.preventDefault()
-//         try {
-//             document.querySelectorAll('p')[1].innerText = `The average of your array is: ${averagingAddedNumbers().toFixed(2)}`
-//         }
-//         catch (err) {
-//             console.log(`${err}`)
-//         }
-//     }
-
-//     document.querySelectorAll('button')[0].addEventListener('click', sizeButtonFunction)
-// })();
-
-

@@ -14,8 +14,64 @@
     <link rel="stylesheet" href="style.css">
 </head>
 
-<body>
-
+<body id="the-body">
+    <form>
+        <h1>Searching Countries</h1>
+        <span>If you want statistics for the whole countries of the world press here: </span>
+        <button>ALL</button>
+        <br>
+        <label for="country">Enter One Country, Please Sir, Have a Good Day Sir:</label>
+        <input id="country"><button>One Country</button>
+    </form>
+    <div id="the-statistics">
+        <p id="total-countries"></p>
+        <p id="total-population"></p>
+        <p id="average-population"></p>
+    </div>
+    <div id="the-tables">
+        <table id="citizens">
+            <thead>
+                <tr>
+                    <th>Country Name</th>
+                    <th>Number of citizens</th>
+                </tr>
+            </thead>
+            <tbody id="citizens-body">
+                <tr>
+                    <td>Israel</td>
+                    <td>10000000</td>
+                </tr>
+            </tbody>
+        </table>
+        <table id="region">
+            <thead>
+                <tr>
+                    <th>Region</th>
+                    <th>Number of countries</th>
+                </tr>
+            </thead>
+            <tbody id="region-body">
+                <tr>
+                    <td>Asia</td>
+                    <td>2</td>
+                </tr>
+            </tbody>
+        </table>
+        <table id="currency">
+            <thead>
+                <tr>
+                    <th>Currency</th>
+                    <th>Number of countries</th>
+                </tr>
+            </thead>
+            <tbody id="currency-body">
+                <tr>
+                    <td>USD</td>
+                    <td>2</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </body>
 
 </html>
